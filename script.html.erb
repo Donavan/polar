@@ -11,9 +11,7 @@
             {
                 label: "Score",
                 data: [<%= chart_data[:values].join(',') %>],
-                backgroundColor: ["#ffff00", "#00ffff", "#ff00ff", "#0000ff", "#ff0000",
-                    "#00ff00", "#F00099", "#f09900", "#99F000"
-                ],
+                backgroundColor: [<%= chart_data[:colors].map { |c| "\"#{c}\""}.join(',') %>],
                 borderColor: ["#000000", "#000000", "#000000", "#000000", "#000000",
                     "#000000", "#000000", "#000000", "#000000"
                 ]
@@ -45,9 +43,7 @@
             {
                 label: "Score",
                 data: [<%= chart_data[:ticks].join(',') %>],
-                backgroundColor: ["#ffff00", "#00ffff", "#ff00ff", "#0000ff", "#ff0000",
-                    "#00ff00", "#F00099", "#f09900", "#99F000"
-                ],
+                backgroundColor: [<%= chart_data[:colors].map { |c| "\"#{c}\""}.join(',') %>],
                 borderColor: ["rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)",
                     "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)"
                 ]
@@ -95,6 +91,7 @@
                     "rgba(255,0,0,0.0)",
                     "rgba(255,0,0,0.0)"
                 ],
+                borderWidth: 3,
                 borderColor: [
                     "#000000",
                     "#000000",
@@ -147,6 +144,11 @@
         scale: {
             display: true,
             ticks: {
+                gridLines: {
+                    lineWidth: 3,
+                    drawBorder: false,
+                },
+
                 beginAtZero: true,
                 max: 1,
                 callback: function (value, index, values) {

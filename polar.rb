@@ -58,8 +58,9 @@ def var_safe(value)
   value.delete(' /.:-')
 end
 
-def render_chart(title, data, template)
-  chart_data = data.merge(title: title, var_key: var_safe(title),
+def render_chart(title, data, template, colors=nil)
+  colors ||= $config[:colors]
+  chart_data = data.merge(title: title, var_key: var_safe(title), colors: colors,
                           width: CHART_WIDTH, height: CHART_HEIGHT)
   ERB.new(template).result(binding)
 end
@@ -84,6 +85,7 @@ def render_data(data, outfile)
   File.open("#{outfile}.html", 'wb') { |f| f.write(ERB.new(template).result(binding)) }
 end
 
+$config = File.open('config.yml', 'r') { |f| YAML.load(f.read) }
 data = read_data(ARGV[0])
 render_data(data, ARGV[0])
 
