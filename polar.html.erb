@@ -1,0 +1,42 @@
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="polar.css">
+</head>
+<body>
+<div class="container">
+  <!-- Render the overall chart -->
+  <div class="row overall">
+    <%= render_chart('Overall', score_overall(scored), chart_template) %>
+  </div>
+  <% scored.each do |cat_name, category| %>
+    <% next unless category.is_a?(Hash) %>
+    <!-- Render the <%= cat_name %> category chart -->
+    <div class="row category_row">
+    <%= render_chart(cat_name, category, chart_template) %>
+    </div>
+    <% category.each do |subcat_name, subcat| %>
+      <% next unless subcat.is_a?(Hash) %>
+      <!-- Render the <%=  "#{cat_name} - #{subcat_name}" %> subcategory -->
+      <div class="row sub_category_row">
+      <%= render_chart("#{cat_name} - #{subcat_name}", subcat, chart_template) %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<!-- <script> -->
+<!--     // Scripts for the overall chart -->
+    <%= render_chart('Overall', score_overall(scored), script_template) %>
+    <% scored.each do |cat_name, category| %>
+    <% next unless category.is_a?(Hash) %>
+    <!-- Scripts for the <%= cat_name %> category chart -->
+    <%= render_chart(cat_name, category, script_template) %>
+    <% category.each do |subcat_name, subcat| %>
+    <% next unless subcat.is_a?(Hash) %>
+    <!-- Scripts for the <%=  "#{cat_name} - #{subcat_name}" %> subcategory -->
+    <%= render_chart("#{cat_name} - #{subcat_name}", subcat, script_template) %>
+    <% end %>
+    <% end %>
+<!-- </script> -->
+</body>

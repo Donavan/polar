@@ -1,0 +1,155 @@
+<script>
+    var ctx<%= chart_data[:var_key] %> = document.getElementById("myChart<%= chart_data[:var_key] %>").getContext("2d");
+    var overlayCtx<%= chart_data[:var_key] %> = document.getElementById("myOverlay<%= chart_data[:var_key] %>").getContext("2d");
+    var ticksCtx<%= chart_data[:var_key] %> = document.getElementById("myTicks<%= chart_data[:var_key] %>").getContext("2d");
+
+    // This is the actual data being plotted.
+    // The only relevant bits are the background colors and the data values
+    data<%= chart_data[:var_key] %> = {
+        datasets: [
+            {
+                label: "Score",
+                data: [<%= chart_data[:values].join(',') %>],
+                backgroundColor: ["#ffff00", "#00ffff", "#ff00ff", "#0000ff", "#ff0000",
+                    "#00ff00", "#F00099", "#f09900", "#99F000"
+                ],
+                borderColor: ["#000000", "#000000", "#000000", "#000000", "#000000",
+                    "#000000", "#000000", "#000000", "#000000"
+                ]
+            }
+        ],
+        labels: [<%= chart_data[:labels].map { |l| "\"#{l}\""}.join(',') %>],
+        true_values: [<%= chart_data[:values].join(',') %>]
+    };
+    options<%= chart_data[:var_key] %> = {
+        scale: {
+            display: false
+        },
+        legend: {
+            display: false
+        },
+        tooltips: {
+            callbacks: {
+                label: function(tooltipItem, data) {
+                    var label = data.labels[tooltipItem.index] || '';
+                    return label + ": " + Math.round(data.true_values[tooltipItem.index]);
+                }
+            }
+        }
+    };
+
+
+    // This provides layer gives us the dividing border lines.
+    // The data values for this are all set to 1.0 and the background
+    // color is transparent so that the colors from the content layer
+    // can show through.
+    ///
+    // this layer is drawn last.
+    overlayData<%= chart_data[:var_key] %> = {
+        datasets: [
+            {
+                label: "Score",
+                data: [<%= chart_data[:ranges].join(',') %>],
+                backgroundColor: [
+                    "rgba(255,0,0,0.0)",
+                    "rgba(255,0,0,0.0)",
+                    "rgba(255,0,0,0.0)",
+                    "rgba(255,0,0,0.0)",
+                    "rgba(255,0,0,0.0)",
+                    "rgba(255,0,0,0.0)",
+                    "rgba(255,0,0,0.0)",
+                    "rgba(255,0,0,0.0)",
+                    "rgba(255,0,0,0.0)"
+                ],
+                borderColor: [
+                    "#000000",
+                    "#000000",
+                    "#000000",
+                    "#000000",
+                    "#000000",
+                    "#000000",
+                    "#000000",
+                    "#000000",
+                    "#000000"
+                ]
+            }
+        ],
+        labels: [<%= chart_data[:labels].map { |l| "\"#{l}\""}.join(',') %>],
+        true_values: [<%= chart_data[:values].join(',') %>]
+    };
+    overlayOptions<%= chart_data[:var_key] %> = {
+        scale: {
+            display: false
+        },
+        legend: {
+          display: false
+        },
+        tooltips: {
+          callbacks: {
+            label: function(tooltipItem, data) {
+              var label = data.labels[tooltipItem.index] || '';
+              return label + ": " + Math.round(data.true_values[tooltipItem.index]);
+            }
+          }
+        }
+    };
+
+
+    // This layer provides the tick marks, it's drawn between the content and
+    // the overlay.  The data values are all set to zero so that we get tick
+    // marks all the way to the center, even where there's data
+    //
+    ticksData<%= chart_data[:var_key] %> = {
+        datasets: [
+            {
+                label: "Score",
+                data: [<%= chart_data[:ticks].join(',') %>],
+            }
+        ],
+        labels: [<%= chart_data[:labels].map { |l| "\"#{l}\""}.join(',') %>],
+        true_values: [<%= chart_data[:values].join(',') %>]
+    };
+    ticksOptions<%= chart_data[:var_key] %> = {
+        scale: {
+            display: true,
+
+            ticks: {
+                beginAtZero: true,
+                max: 1,
+                callback: function (value, index, values) {
+                    return "";
+                }
+            }
+        },
+        legend: {
+            display: false
+        },
+        tooltips: {
+            callbacks: {
+                label: function(tooltipItem, data) {
+                    var label = data.labels[tooltipItem.index] || '';
+                    return label + ": " + Math.round(data.true_values[tooltipItem.index]);
+                }
+            }
+        }
+    };
+
+    new Chart(ctx<%= chart_data[:var_key] %>, {
+        data: data<%= chart_data[:var_key] %>,
+        type: "polarArea",
+        options: options<%= chart_data[:var_key] %>
+    });
+
+    new Chart(overlayCtx<%= chart_data[:var_key] %>, {
+        data: overlayData<%= chart_data[:var_key] %>,
+        type: "polarArea",
+        options: overlayOptions<%= chart_data[:var_key] %>
+    });
+
+    new Chart(ticksCtx<%= chart_data[:var_key] %>, {
+        data: ticksData<%= chart_data[:var_key] %>,
+        type: "polarArea",
+        options: ticksOptions<%= chart_data[:var_key] %>
+    });
+
+</script>
