@@ -1,0 +1,34 @@
+Automation, Version Control, Enforced Pre-commit validations, 0
+Automation, Version Control, Feature Based Change Sets, 0
+Automation, Version Control, Commit rollback on CI Failure, 0
+Automation, Version Control, Branching/Merging Strategy, 2
+Automation, Version Control, Integrated with Defect Management System, 0
+Automation, Version Control, Integrated with Story Management System, 0
+Automation, Environment, Provisioning Self-service tear up/down [individual developer], 0
+Automation, Environment, Provisioning Infrastructure as Code - Templated provisioning, 2
+Automation, Environment, Provisioning Containers and Orchestration, 0
+Automation, Security/Audit, Audit/Compliance, 2
+Automation, Security/Audit, Pen Testing, 2
+Automation, Security/Audit, Hostile Environment, 0
+Automation, Security/Audit, Code Scanning, 3
+Automation, Security/Audit, Build Scanning, 1
+Automation, Security/Audit, Separation of Duties - Automation, 3
+Automation, Security/Audit, Separation of Duties - Separate Accounts, 3
+Automation, Security/Audit, Cryptographic Signing, 0
+Testing, Version Control, Enforced Pre-commit validations, 0
+Testing, Version Control, Feature Based Change Sets, 0
+Testing, Version Control, Commit rollback on CI Failure, 0
+Testing, Version Control, Branching/Merging Strategy, 2
+Testing, Version Control, Integrated with Defect Management System, 4
+Testing, Version Control, Integrated with Story Management System, 1
+Testing, Environment, Provisioning Self-service tear up/down [individual developer], 2
+Testing, Environment, Provisioning Infrastructure as Code - Templated provisioning, 3
+Testing, Environment, Provisioning Containers and Orchestration, 4
+Testing, Security/Audit, Audit/Compliance, 3
+Testing, Security/Audit, Pen Testing, 2
+Testing, Security/Audit, Hostile Environment, 0
+Testing, Security/Audit, Code Scanning, 3
+Testing, Security/Audit, Build Scanning, 1
+Testing, Security/Audit, Separation of Duties - Automation, 3
+Testing, Security/Audit, Separation of Duties - Separate Accounts, 3
+Testing, Security/Audit, Cryptographic Signing, 4
