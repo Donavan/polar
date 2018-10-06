@@ -4,7 +4,7 @@ require 'erb'
 require 'nenv'
 
 CHART_WIDTH = 800
-CHART_HEIGHT = 450
+CHART_HEIGHT = 500
 
 def read_data(filename)
   lines = File.readlines(filename).map { |l| l.split(',') }

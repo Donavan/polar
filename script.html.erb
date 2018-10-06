@@ -2,6 +2,7 @@
     var ctx<%= chart_data[:var_key] %> = document.getElementById("myChart<%= chart_data[:var_key] %>").getContext("2d");
     var overlayCtx<%= chart_data[:var_key] %> = document.getElementById("myOverlay<%= chart_data[:var_key] %>").getContext("2d");
     var ticksCtx<%= chart_data[:var_key] %> = document.getElementById("myTicks<%= chart_data[:var_key] %>").getContext("2d");
+    var legendCtx<%= chart_data[:var_key] %> = document.getElementById("legend<%= chart_data[:var_key] %>").getContext("2d");
 
     // This is the actual data being plotted.
     // The only relevant bits are the background colors and the data values
@@ -26,7 +27,7 @@
             display: false
         },
         legend: {
-            position: 'right'
+            display: false
         },
         tooltips: {
             callbacks: {
@@ -38,6 +39,39 @@
         }
     };
 
+    // This layer provides the legend
+    legendData<%= chart_data[:var_key] %> = {
+        datasets: [
+            {
+                label: "Score",
+                data: [<%= chart_data[:ticks].join(',') %>],
+                backgroundColor: ["#ffff00", "#00ffff", "#ff00ff", "#0000ff", "#ff0000",
+                    "#00ff00", "#F00099", "#f09900", "#99F000"
+                ],
+                borderColor: ["rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)",
+                    "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)"
+                ]
+            }
+        ],
+        labels: [<%= chart_data[:labels].map { |l| "\"#{l}\""}.join(',') %>],
+        true_values: [<%= chart_data[:values].join(',') %>]
+    };
+    legendOptions<%= chart_data[:var_key] %> = {
+        scale: {
+            display: false
+        },
+        legend: {
+            position: 'top'
+        },
+        tooltips: {
+            callbacks: {
+                label: function(tooltipItem, data) {
+                    var label = data.labels[tooltipItem.index] || '';
+                    return label + ": " + Math.round(data.true_values[tooltipItem.index]);
+                }
+            }
+        }
+    };
 
     // This provides layer gives us the dividing border lines.
     // The data values for this are all set to 1.0 and the background
@@ -149,6 +183,12 @@
         data: ticksData<%= chart_data[:var_key] %>,
         type: "polarArea",
         options: ticksOptions<%= chart_data[:var_key] %>
+    });
+
+    new Chart(legendCtx<%= chart_data[:var_key] %>, {
+        data: legendData<%= chart_data[:var_key] %>,
+        type: "polarArea",
+        options: legendOptions<%= chart_data[:var_key] %>
     });
 
 </script>
