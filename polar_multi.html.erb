@@ -15,8 +15,12 @@
   </div>
 
 </nav>
-
 <div class="container">
+  <div class="row">
+    <nav aria-label="breadcrumb">
+      <span class="breadcrumb-item"><%= chart_data[:display_title] || chart_data[:title] %></span>
+    </nav>
+  </div>
   <!-- Render the chart -->
   <div class="row overall">
     <%= chart_data[:chart] %>
@@ -24,8 +28,8 @@
 </div>
 <footer class="page-footer font-small pt-4">
 <!-- Copyright -->
-<div class="footer-copyright text-center py-3">© 2018 Copyright:
-  <a href="https://centricconsulting.com"> Centric Consulting</a>
+<div class="footer-copyright text-center py-3">
+  Prepared for <%= $config[:client_name] %> by Centric Consulting. <strong>* Client Confidential *</strong> © 2018 <a href="https://centricconsulting.com"> Centric Consulting</a>
 </div>
 <!-- Copyright -->
 
