@@ -84,7 +84,16 @@
     };
     optionsAutomation = {
         scale: {
-            display: false
+            display: false,
+            ticks: {
+                beginAtZero: true,
+                min: 0,
+                max: 5,
+                stepSize: 1,
+                callback: function (value, index, values) {
+                    return "";
+                }
+            }
         },
         legend: {
             display: false
@@ -203,16 +212,18 @@
         true_values: [2.1666666666666665,1.6666666666666667,2.0]
     };
     ticksOptionsAutomation = {
+
         scale: {
             display: true,
+            gridLines: {
+                lineWidth: 3,
+                drawBorder: false,
+            },
             ticks: {
-                gridLines: {
-                    lineWidth: 3,
-                    drawBorder: false,
-                },
-
                 beginAtZero: true,
-                max: 1,
+                min: 0,
+                max: 5,
+                stepSize: 1,
                 callback: function (value, index, values) {
                     return "";
                 }
