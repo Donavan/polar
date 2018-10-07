@@ -25,8 +25,14 @@
     options<%= chart_data[:var_key] %> = {
         scale: {
             display: false,
+            gridLines: {
+                lineWidth: 3,
+                drawBorder: true,
+                drawOnChartArea: true
+            },
             ticks: {
                 beginAtZero: true,
+                drawOnChartArea: true,
                 min: 0,
                 max: 5,
                 stepSize: 1,
@@ -64,6 +70,7 @@
         true_values: [<%= chart_data[:values].join(',') %>]
     };
     legendOptions<%= chart_data[:var_key] %> = {
+        animation: false,
         scale: {
             display: false
         },
@@ -120,17 +127,19 @@
         true_values: [<%= chart_data[:values].join(',') %>]
     };
     overlayOptions<%= chart_data[:var_key] %> = {
-        scale: {
+        animation: false,
+    scale: {
             display: false
         },
         legend: {
           display: false
         },
         tooltips: {
+            displayColors: false,
           callbacks: {
             label: function(tooltipItem, data) {
               var label = data.labels[tooltipItem.index] || '';
-              return label + ": " + Math.round(data.true_values[tooltipItem.index]);
+              return label + ": " + Math.round(data.true_values[tooltipItem.index] * 100)  / 100;
             }
           }
         }
@@ -152,7 +161,7 @@
         true_values: [<%= chart_data[:values].join(',') %>]
     };
     ticksOptions<%= chart_data[:var_key] %> = {
-
+        animation: false,
         scale: {
             display: true,
             gridLines: {

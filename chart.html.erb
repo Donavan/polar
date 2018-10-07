@@ -4,12 +4,9 @@
 <div class='row'>
   <div class='col-lg-12'>
     <div class="container">
-      <div class="row">
-        <h3></h3>
-      </div>
-      <div class="row">
+       <div class="row">
         <div class='chart'>
-          <canvas id="myChart<%= chart_data[:var_key] %>" width="<%= chart_data[:width]%>" height="<%= chart_data[:height] %>" class='content'></canvas>
+          <canvas id="myChart<%= chart_data[:var_key] %>" width="<%= chart_data[:width]%>" height="<%= chart_data[:height] %>"></canvas>
         </div>
         <div class='overlay'>
           <canvas id="myOverlay<%= chart_data[:var_key] %>" width="<%= chart_data[:width] %>" height="<%= chart_data[:height] %>"></canvas>

@@ -25,12 +25,9 @@
 <div class='row'>
   <div class='col-lg-12'>
     <div class="container">
-      <div class="row">
-        <h3></h3>
-      </div>
-      <div class="row">
+       <div class="row">
         <div class='chart'>
-          <canvas id="myChartOverview" width="800" height="500" class='content'></canvas>
+          <canvas id="myChartOverview" width="800" height="500"></canvas>
         </div>
         <div class='overlay'>
           <canvas id="myOverlayOverview" width="800" height="500"></canvas>
@@ -85,8 +82,14 @@
     optionsOverview = {
         scale: {
             display: false,
+            gridLines: {
+                lineWidth: 3,
+                drawBorder: true,
+                drawOnChartArea: true
+            },
             ticks: {
                 beginAtZero: true,
+                drawOnChartArea: true,
                 min: 0,
                 max: 5,
                 stepSize: 1,
@@ -124,6 +127,7 @@
         true_values: [1.9444444444444446,2.388888888888889]
     };
     legendOptionsOverview = {
+        animation: false,
         scale: {
             display: false
         },
@@ -180,17 +184,19 @@
         true_values: [1.9444444444444446,2.388888888888889]
     };
     overlayOptionsOverview = {
-        scale: {
+        animation: false,
+    scale: {
             display: false
         },
         legend: {
           display: false
         },
         tooltips: {
+            displayColors: false,
           callbacks: {
             label: function(tooltipItem, data) {
               var label = data.labels[tooltipItem.index] || '';
-              return label + ": " + Math.round(data.true_values[tooltipItem.index]);
+              return label + ": " + Math.round(data.true_values[tooltipItem.index] * 100)  / 100;
             }
           }
         }
@@ -212,7 +218,7 @@
         true_values: [1.9444444444444446,2.388888888888889]
     };
     ticksOptionsOverview = {
-
+        animation: false,
         scale: {
             display: true,
             gridLines: {
