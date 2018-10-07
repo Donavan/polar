@@ -5,12 +5,31 @@
   <link rel="stylesheet" href="css/polar.css">
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <img src="https://centricconsulting.com/wp-content/themes/orbit-media/images/centric-logo.png" alt="Centric Consulting" class="logo-reverse navbar-brand">
+  </a>
+
+  <div class="navbar-nav">
+   <span class="nav-item"><%= chart_data[:header_text] %></span>
+  </div>
+
+</nav>
+
 <div class="container">
   <!-- Render the chart -->
   <div class="row overall">
     <%= chart_data[:chart] %>
   </div>
 </div>
+<footer class="page-footer font-small pt-4">
+<!-- Copyright -->
+<div class="footer-copyright text-center py-3">© 2018 Copyright:
+  <a href="https://centricconsulting.com"> Centric Consulting</a>
+</div>
+<!-- Copyright -->
+
+</footer>
 <!-- <script> -->
 <!--     // Scripts for the overall chart -->
     <%= chart_data[:script] %>

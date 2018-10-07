@@ -69,7 +69,8 @@ end
 def render_chart_to_file(prefix, title, data, chart_template, script_template, allow_links = true, colors = nil)
   colors ||= $config[:colors]
   chart_data = data.merge(title: title, var_key: var_safe(title), colors: colors,
-                          width: CHART_WIDTH, height: CHART_HEIGHT, use_nav: allow_links)
+                          width: CHART_WIDTH, height: CHART_HEIGHT, use_nav: allow_links,
+                          header_text: $config[:header_text])
   chart_data[:url_prefix] = var_safe(title) unless title == MAIN_TITLE
   chart_data[:chart] = ERB.new(chart_template).result(binding)
   chart_data[:script] = ERB.new(script_template).result(binding)

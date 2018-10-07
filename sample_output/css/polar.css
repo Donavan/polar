@@ -38,3 +38,41 @@ div.category_row {
 div.sub_category_row {
     margin-top: 620px;
 }
+
+.navbar {
+    padding-top: 0rem;
+    padding-right: 1rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+}
+.navbar-brand {
+    width: 110px;
+    padding: 12px 15px 0;
+    height: auto;
+}
+.container {
+    height: 600px;
+}
+.navbar-nav {
+    padding-left: 100px;
+    margin-top: 25px;
+}
+
+img.navbar-brand {
+    width: 200px;
+    max-width: 200px;
+}
+
+.nav-item {
+    font-family: "muli", "Myriad Pro", Helvetica, Arial, sans-serif;
+    font-size: 24px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Set the fixed height of the footer here */
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #f5f5f5;
+}
