@@ -24,7 +24,16 @@
     };
     options<%= chart_data[:var_key] %> = {
         scale: {
-            display: false
+            display: false,
+            ticks: {
+                beginAtZero: true,
+                min: 0,
+                max: 5,
+                stepSize: 1,
+                callback: function (value, index, values) {
+                    return "";
+                }
+            }
         },
         legend: {
             display: false
@@ -143,16 +152,18 @@
         true_values: [<%= chart_data[:values].join(',') %>]
     };
     ticksOptions<%= chart_data[:var_key] %> = {
+
         scale: {
             display: true,
+            gridLines: {
+                lineWidth: 3,
+                drawBorder: false,
+            },
             ticks: {
-                gridLines: {
-                    lineWidth: 3,
-                    drawBorder: false,
-                },
-
                 beginAtZero: true,
-                max: 1,
+                min: 0,
+                max: 5,
+                stepSize: 1,
                 callback: function (value, index, values) {
                     return "";
                 }
