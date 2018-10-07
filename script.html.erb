@@ -14,8 +14,7 @@
                 label: "Score",
                 data: [<%= chart_data[:values].join(',') %>],
                 backgroundColor: [<%= chart_data[:colors].map { |c| "\"#{c}\""}.join(',') %>],
-                borderColor: ["#000000", "#000000", "#000000", "#000000", "#000000",
-                    "#000000", "#000000", "#000000", "#000000"
+                borderColor: [<%= chart_data[:colors].map { |_| "\"#000000\""}.join(',') %>
                 ]
             }
         ],
@@ -46,7 +45,7 @@
         },
         tooltips: {
             callbacks: {
-                label: function(tooltipItem, data) {
+                label: function (tooltipItem, data) {
                     var label = data.labels[tooltipItem.index] || '';
                     return label + ": " + Math.round(data.true_values[tooltipItem.index]);
                 }
@@ -61,9 +60,7 @@
                 label: "Score",
                 data: [<%= chart_data[:ticks].join(',') %>],
                 backgroundColor: [<%= chart_data[:colors].map { |c| "\"#{c}\""}.join(',') %>],
-                borderColor: ["rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)",
-                    "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)"
-                ]
+                borderColor: [<%= chart_data[:colors].map { |_| "\"rgba(255,0,0,0.0)\""}.join(',') %>]
             }
         ],
         labels: [<%= chart_data[:labels].map { |l| "\"#{l}\""}.join(',') %>],
@@ -79,7 +76,7 @@
         },
         tooltips: {
             callbacks: {
-                label: function(tooltipItem, data) {
+                label: function (tooltipItem, data) {
                     var label = data.labels[tooltipItem.index] || '';
                     return label + ": " + Math.round(data.true_values[tooltipItem.index]);
                 }
@@ -98,29 +95,9 @@
             {
                 label: "Score",
                 data: [<%= chart_data[:ranges].join(',') %>],
-                backgroundColor: [
-                    "rgba(255,0,0,0.0)",
-                    "rgba(255,0,0,0.0)",
-                    "rgba(255,0,0,0.0)",
-                    "rgba(255,0,0,0.0)",
-                    "rgba(255,0,0,0.0)",
-                    "rgba(255,0,0,0.0)",
-                    "rgba(255,0,0,0.0)",
-                    "rgba(255,0,0,0.0)",
-                    "rgba(255,0,0,0.0)"
-                ],
+                backgroundColor: [<%= chart_data[:colors].map { |_| "\"rgba(255,0,0,0.0)\""}.join(',') %>],
                 borderWidth: 3,
-                borderColor: [
-                    "#000000",
-                    "#000000",
-                    "#000000",
-                    "#000000",
-                    "#000000",
-                    "#000000",
-                    "#000000",
-                    "#000000",
-                    "#000000"
-                ]
+                borderColor: [<%= chart_data[:colors].map { |_| "\"#000000\""}.join(',') %>],
             }
         ],
         labels: [<%= chart_data[:labels].map { |l| "\"#{l}\""}.join(',') %>],
@@ -128,20 +105,20 @@
     };
     overlayOptions<%= chart_data[:var_key] %> = {
         animation: false,
-    scale: {
+        scale: {
             display: false
         },
         legend: {
-          display: false
+            display: false
         },
         tooltips: {
             displayColors: false,
-          callbacks: {
-            label: function(tooltipItem, data) {
-              var label = data.labels[tooltipItem.index] || '';
-              return label + ": " + Math.round(data.true_values[tooltipItem.index] * 100)  / 100;
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    var label = data.labels[tooltipItem.index] || '';
+                    return label + ": " + Math.round(data.true_values[tooltipItem.index] * 100) / 100;
+                }
             }
-          }
         }
     };
 
@@ -183,7 +160,7 @@
         },
         tooltips: {
             callbacks: {
-                label: function(tooltipItem, data) {
+                label: function (tooltipItem, data) {
                     var label = data.labels[tooltipItem.index] || '';
                     return label + ": " + Math.round(data.true_values[tooltipItem.index]);
                 }
@@ -217,12 +194,12 @@
 
 
     <% if chart_data.fetch(:use_nav, false) %>
-        overlayCanvas<%= chart_data[:var_key] %>.onclick = function(e) {
-            var slice = overlayChart<%= chart_data[:var_key] %>.getElementAtEvent(e);
-            if (!slice.length) return; // return if not clicked on slice
-            var label = slice[0]._model.label.replace(/(-|\/|:| )/g, '');
-            window.location ="<%= chart_data.fetch(:url_prefix, '')%>" + label + ".html";
-        }
+    overlayCanvas<%= chart_data[:var_key] %>.onclick = function (e) {
+        var slice = overlayChart<%= chart_data[:var_key] %>.getElementAtEvent(e);
+        if (!slice.length) return; // return if not clicked on slice
+        var label = slice[0]._model.label.replace(/(-|\/|:| )/g, '');
+        window.location = "<%= chart_data.fetch(:url_prefix, '')%>" + label + ".html";
+    }
     <% end %>
 
 </script>
