@@ -4,7 +4,7 @@ require 'erb'
 require 'nenv'
 
 CHART_WIDTH  = 800
-CHART_HEIGHT = 600
+CHART_HEIGHT = 580
 MAIN_TITLE = 'Overview'
 
 def read_data(filename)
