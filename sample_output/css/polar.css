@@ -1,0 +1,40 @@
+div.chart_container {
+    position: relative;
+}
+
+div.overlay {
+    position: absolute;
+    margin-top: 70px;
+    left: 50px;
+    z-index: 4;
+}
+
+div.chart {
+    position: absolute;
+    margin-top: 70px;
+    z-index: 0;
+    left: 50px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+div.ticks {
+    position: absolute;
+    margin-top: 70px;
+    left: 50px;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+div.legend {
+    position: absolute;
+    left: 50px;
+    z-index: 3;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+div.category_row {
+    margin-top: 620px;
+}
+div.sub_category_row {
+    margin-top: 620px;
+}

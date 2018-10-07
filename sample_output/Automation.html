@@ -1,28 +1,66 @@
-<script>
-    var ctx<%= chart_data[:var_key] %> = document.getElementById("myChart<%= chart_data[:var_key] %>").getContext("2d");
-    var overlayCanvas<%= chart_data[:var_key] %> = document.getElementById("myOverlay<%= chart_data[:var_key] %>");
-    var overlayCtx<%= chart_data[:var_key] %> = overlayCanvas<%= chart_data[:var_key] %>.getContext("2d");
-    var ticksCtx<%= chart_data[:var_key] %> = document.getElementById("myTicks<%= chart_data[:var_key] %>").getContext("2d");
-    var legendCtx<%= chart_data[:var_key] %> = document.getElementById("legend<%= chart_data[:var_key] %>").getContext("2d");
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/polar.css">
+</head>
+<body>
+<div class="container">
+  <!-- Render the chart -->
+  <div class="row overall">
+    <div class='row'>
+  <div class='col-lg-12'>
+    <div class="container">
+      <div class="row">
+        <h2><a href='Overview.html'>Overview</a> - Automation</h2>
+      </div>
+      <div class="row">
+        <div class='chart'>
+          <canvas id="myChartAutomation" width="800" height="500" class='content'></canvas>
+        </div>
+        <div class='overlay'>
+          <canvas id="myOverlayAutomation" width="800" height="500"></canvas>
+        </div>
+        <div class='legend'>
+          <canvas id="legendAutomation" width="800" height="500"></canvas>
+        </div>
+        <div class='ticks'>
+          <canvas id="myTicksAutomation" width="800" height="500"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+<!-- <script> -->
+<!--     // Scripts for the overall chart -->
+    <script>
+    var ctxAutomation = document.getElementById("myChartAutomation").getContext("2d");
+    var overlayCanvasAutomation = document.getElementById("myOverlayAutomation");
+    var overlayCtxAutomation = overlayCanvasAutomation.getContext("2d");
+    var ticksCtxAutomation = document.getElementById("myTicksAutomation").getContext("2d");
+    var legendCtxAutomation = document.getElementById("legendAutomation").getContext("2d");
 
 
     // This is the actual data being plotted.
     // The only relevant bits are the background colors and the data values
-    data<%= chart_data[:var_key] %> = {
+    dataAutomation = {
         datasets: [
             {
                 label: "Score",
-                data: [<%= chart_data[:values].join(',') %>],
-                backgroundColor: [<%= chart_data[:colors].map { |c| "\"#{c}\""}.join(',') %>],
+                data: [2.1666666666666665,1.6666666666666667,2.0],
+                backgroundColor: ["#59B9EF","#B5D855","#FBC363","#81D8FD","#DE94D4","#F5D048","#90B9D1","#CDC5A5","#50BBCC","#D7DD46","#92ADFE"],
                 borderColor: ["#000000", "#000000", "#000000", "#000000", "#000000",
                     "#000000", "#000000", "#000000", "#000000"
                 ]
             }
         ],
-        labels: [<%= chart_data[:labels].map { |l| "\"#{l}\""}.join(',') %>],
-        true_values: [<%= chart_data[:values].join(',') %>]
+        labels: ["Version Control","Environment","Security/Audit"],
+        true_values: [2.1666666666666665,1.6666666666666667,2.0]
     };
-    options<%= chart_data[:var_key] %> = {
+    optionsAutomation = {
         scale: {
             display: false
         },
@@ -40,21 +78,21 @@
     };
 
     // This layer provides the legend
-    legendData<%= chart_data[:var_key] %> = {
+    legendDataAutomation = {
         datasets: [
             {
                 label: "Score",
-                data: [<%= chart_data[:ticks].join(',') %>],
-                backgroundColor: [<%= chart_data[:colors].map { |c| "\"#{c}\""}.join(',') %>],
+                data: [0,0,0],
+                backgroundColor: ["#59B9EF","#B5D855","#FBC363","#81D8FD","#DE94D4","#F5D048","#90B9D1","#CDC5A5","#50BBCC","#D7DD46","#92ADFE"],
                 borderColor: ["rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)",
                     "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)", "rgba(255,0,0,0.0)"
                 ]
             }
         ],
-        labels: [<%= chart_data[:labels].map { |l| "\"#{l}\""}.join(',') %>],
-        true_values: [<%= chart_data[:values].join(',') %>]
+        labels: ["Version Control","Environment","Security/Audit"],
+        true_values: [2.1666666666666665,1.6666666666666667,2.0]
     };
-    legendOptions<%= chart_data[:var_key] %> = {
+    legendOptionsAutomation = {
         scale: {
             display: false
         },
@@ -77,11 +115,11 @@
     // can show through.
     ///
     // this layer is drawn last.
-    overlayData<%= chart_data[:var_key] %> = {
+    overlayDataAutomation = {
         datasets: [
             {
                 label: "Score",
-                data: [<%= chart_data[:ranges].join(',') %>],
+                data: [5,5,5],
                 backgroundColor: [
                     "rgba(255,0,0,0.0)",
                     "rgba(255,0,0,0.0)",
@@ -107,10 +145,10 @@
                 ]
             }
         ],
-        labels: [<%= chart_data[:labels].map { |l| "\"#{l}\""}.join(',') %>],
-        true_values: [<%= chart_data[:values].join(',') %>]
+        labels: ["Version Control","Environment","Security/Audit"],
+        true_values: [2.1666666666666665,1.6666666666666667,2.0]
     };
-    overlayOptions<%= chart_data[:var_key] %> = {
+    overlayOptionsAutomation = {
         scale: {
             display: false
         },
@@ -132,17 +170,17 @@
     // the overlay.  The data values are all set to zero so that we get tick
     // marks all the way to the center, even where there's data
     //
-    ticksData<%= chart_data[:var_key] %> = {
+    ticksDataAutomation = {
         datasets: [
             {
                 label: "Score",
-                data: [<%= chart_data[:ticks].join(',') %>],
+                data: [0,0,0],
             }
         ],
-        labels: [<%= chart_data[:labels].map { |l| "\"#{l}\""}.join(',') %>],
-        true_values: [<%= chart_data[:values].join(',') %>]
+        labels: ["Version Control","Environment","Security/Audit"],
+        true_values: [2.1666666666666665,1.6666666666666667,2.0]
     };
-    ticksOptions<%= chart_data[:var_key] %> = {
+    ticksOptionsAutomation = {
         scale: {
             display: true,
             ticks: {
@@ -171,38 +209,40 @@
         }
     };
 
-    new Chart(ctx<%= chart_data[:var_key] %>, {
-        data: data<%= chart_data[:var_key] %>,
+    new Chart(ctxAutomation, {
+        data: dataAutomation,
         type: "polarArea",
-        options: options<%= chart_data[:var_key] %>
+        options: optionsAutomation
     });
 
-    var overlayChart<%= chart_data[:var_key] %> = new Chart(overlayCtx<%= chart_data[:var_key] %>, {
-        data: overlayData<%= chart_data[:var_key] %>,
+    var overlayChartAutomation = new Chart(overlayCtxAutomation, {
+        data: overlayDataAutomation,
         type: "polarArea",
-        options: overlayOptions<%= chart_data[:var_key] %>
+        options: overlayOptionsAutomation
     });
 
-    new Chart(ticksCtx<%= chart_data[:var_key] %>, {
-        data: ticksData<%= chart_data[:var_key] %>,
+    new Chart(ticksCtxAutomation, {
+        data: ticksDataAutomation,
         type: "polarArea",
-        options: ticksOptions<%= chart_data[:var_key] %>
+        options: ticksOptionsAutomation
     });
 
-    new Chart(legendCtx<%= chart_data[:var_key] %>, {
-        data: legendData<%= chart_data[:var_key] %>,
+    new Chart(legendCtxAutomation, {
+        data: legendDataAutomation,
         type: "polarArea",
-        options: legendOptions<%= chart_data[:var_key] %>
+        options: legendOptionsAutomation
     });
 
 
-    <% if chart_data.fetch(:use_nav, false) %>
-        overlayCanvas<%= chart_data[:var_key] %>.onclick = function(e) {
-            var slice = overlayChart<%= chart_data[:var_key] %>.getElementAtEvent(e);
+    
+        overlayCanvasAutomation.onclick = function(e) {
+            var slice = overlayChartAutomation.getElementAtEvent(e);
             if (!slice.length) return; // return if not clicked on slice
             var label = slice[0]._model.label.replace(/(-|\/|:| )/g, '');
-            window.open("<%= chart_data.fetch(:url_prefix, '')%>" + label + ".html");
+            window.open("Automation" + label + ".html");
         }
-    <% end %>
+    
 
 </script>
+<!-- </script> -->
+</body>
