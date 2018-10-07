@@ -96,14 +96,14 @@ def multi_file_render(data, prefix)
   script_template = File.read('script.html.erb')
   template        = File.read('polar.html.erb')
 
-  render_chart_to_file(full_prefix, MAIN_TITLE, score_overall(scored), chart_template, script_template)
+  render_chart_to_file(full_prefix, MAIN_TITLE, score_overall(scored).merge(display_title: ''), chart_template, script_template)
   scored.each do |cat_name, category|
     next unless category.is_a?(Hash)
     category[:display_title] = "<a href='#{MAIN_TITLE}.html'>#{MAIN_TITLE}</a> - #{cat_name}"
     render_chart_to_file(full_prefix, cat_name, category, chart_template, script_template)
     category.each do |subcat_name, subcat|
       next unless subcat.is_a?(Hash)
-      subcat[:display_title] = "<a href='#{cat_name}.html'>#{cat_name}</a> - #{subcat_name}"
+      subcat[:display_title] = "<a href='Overview.html'>Overview</a> - <a href='#{cat_name}.html'>#{cat_name}</a> - #{subcat_name}"
       render_chart_to_file(full_prefix, "#{cat_name} - #{subcat_name}", subcat, chart_template, script_template, false)
     end
   end

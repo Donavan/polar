@@ -71,6 +71,9 @@ img.navbar-brand {
     font-family: "muli", "Myriad Pro", Helvetica, Arial, sans-serif;
     font-size: 24px;
 }
+.nav-item.small-nav-item {
+    font-size: 18px;
+}
 .breadcrumb-item {
     font-family: "muli", "Myriad Pro", Helvetica, Arial, sans-serif;
     font-size: 24px;

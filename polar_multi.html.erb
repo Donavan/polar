@@ -12,15 +12,16 @@
   </a>
 
   <div class="navbar-nav">
-   <span class="nav-item"><%= chart_data[:header_text] %></span>
+    <span class="nav-item"><%= chart_data[:header_text] %></span>
+  </div>
+    <div class="navbar-nav">
+    <span class="nav-item small-nav-item"><%= chart_data[:display_title] || chart_data[:title] %></span>
   </div>
 
 </nav>
 <div class="container">
   <div class="row">
-    <nav aria-label="breadcrumb">
-      <span class="breadcrumb-item"><%= chart_data[:display_title] || chart_data[:title] %></span>
-    </nav>
+
   </div>
   <!-- Render the chart -->
   <div class="row overall">
