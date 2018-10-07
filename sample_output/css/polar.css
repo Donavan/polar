@@ -5,7 +5,7 @@ div.chart_container {
 div.overlay {
     position: absolute;
     margin-top: 70px;
-    left: 50px;
+    left: 25px;
     z-index: 4;
 }
 
@@ -13,14 +13,14 @@ div.chart {
     position: absolute;
     margin-top: 70px;
     z-index: 0;
-    left: 50px;
+    left: 25px;
     background-color: rgba(255, 255, 255, 0);
 }
 
 div.ticks {
     position: absolute;
     margin-top: 70px;
-    left: 50px;
+    left: 25px;
     z-index: 1;
     background-color: rgba(255, 255, 255, 0);
 }
@@ -30,6 +30,10 @@ div.legend {
     left: 50px;
     z-index: -1;
     background-color: rgba(255, 255, 255, 0);
+}
+
+div.chart_row {
+    padding-top: 5px;
 }
 
 div.category_row {
@@ -42,7 +46,7 @@ div.sub_category_row {
 .navbar {
     padding-top: 0rem;
     padding-right: 1rem;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
     padding-left: 1rem;
 }
 .navbar-brand {
@@ -51,7 +55,7 @@ div.sub_category_row {
     height: auto;
 }
 .container {
-    height: 600px;
+    height: 725px;
 }
 .navbar-nav {
     padding-left: 100px;
@@ -67,7 +71,10 @@ img.navbar-brand {
     font-family: "muli", "Myriad Pro", Helvetica, Arial, sans-serif;
     font-size: 24px;
 }
-
+.breadcrumb-item {
+    font-family: "muli", "Myriad Pro", Helvetica, Arial, sans-serif;
+    font-size: 24px;
+}
 .footer {
     position: absolute;
     bottom: 0;
