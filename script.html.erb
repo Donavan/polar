@@ -201,7 +201,7 @@
             var slice = overlayChart<%= chart_data[:var_key] %>.getElementAtEvent(e);
             if (!slice.length) return; // return if not clicked on slice
             var label = slice[0]._model.label.replace(/(-|\/|:| )/g, '');
-            window.open("<%= chart_data.fetch(:url_prefix, '')%>" + label + ".html");
+            window.location ="<%= chart_data.fetch(:url_prefix, '')%>" + label + ".html";
         }
     <% end %>
 
