@@ -1,0 +1,96 @@
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+  <link rel="stylesheet" id="typekit-css" href="https://use.typekit.net/mju7kpw.css?ver=4.9.8" type="text/css" media="all">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-centric-purple">
+  <a class="navbar-brand" href="#">
+    <img src="https://centricconsulting.com/wp-content/themes/orbit-media/images/centric-logo-white.png" alt="Centric Consulting" class="logo-reverse navbar-brand">
+  </a>
+
+  <div class="navbar-nav">
+    <span class="nav-item">Previewing data from: <strong><%= page_data[:which] %></strong></span>
+  </div>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="/chart_data/<%= page_data[:which] %>/Overview.html">remove frame</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/zip/<%= page_data[:which] %>">download zip</a>
+    </li>
+  </ul>
+  <div class="navbar-nav">
+    <form action="/charts" method="post" enctype="multipart/form-data" class="form-inline navbar-form">
+      <input type="hidden" name="client_name" id="client_name" value="<%=meta[:client_name] %>">
+      <input type="hidden" name="title" id="title" value="<%=meta[:title] %>">
+      <input type="hidden" name="prepared_by" id="prepared_by" value="<%=meta[:prepared_by] %>">
+      <input type="hidden" name="initial_filename" id="initial_filename" value="<%=meta[:initial_filename] %>">
+      <label class="nav-link btn-file" id="browse_link">
+        Browse for new data<input type="file" style="display: none;" name="csv_file" id="csv_file">
+      </label>
+      <input type="submit" value="Upload file" name="submit" class=" btn btn-outline-centric" id="submit_file" style="display: none;">
+    </form>
+  </div>
+
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="/">start over</a>
+    </li>
+  </ul>
+</nav>
+<div class="container">
+
+</div>
+<iframe src="/chart_data/<%= page_data[:which] %>/Overview.html" style="height:900px;width:1000px;"></iframe>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+  crossorigin="anonymous"></script>
+<script>
+    $(document).on('change', ':file', function() {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        $( "#browse_link" ).hide();
+        $( "#submit_file" ).show();
+    });
+
+    var isAdvancedUpload = function() {
+        var div = document.createElement('div');
+        return (('draggable' in div) || ('ondragstart' in div && 'ondrop' in div)) && 'FormData' in window && 'FileReader' in window;
+    }();
+
+    var $form = $('.navbar-form');
+
+    if (isAdvancedUpload) {
+        $form.addClass('has-advanced-upload');
+    }
+
+    if (isAdvancedUpload) {
+
+        var droppedFiles = false;
+
+        $form.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        })
+            .on('dragover dragenter', function() {
+                $form.addClass('is-dragover');
+            })
+            .on('dragleave dragend drop', function() {
+                $form.removeClass('is-dragover');
+            })
+            .on('drop', function(e) {
+                droppedFiles = e.originalEvent.dataTransfer.files;
+            });
+
+    }
+
+</script>
+</body>
+
+
+</html>

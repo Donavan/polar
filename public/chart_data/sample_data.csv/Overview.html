@@ -3,7 +3,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
   <link rel="stylesheet" id="typekit-css" href="https://use.typekit.net/mju7kpw.css?ver=4.9.8" type="text/css" media="all">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/polar.css">
+  <link rel="stylesheet" type="text/css" href="css/polar.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -12,10 +12,10 @@
   </a>
 
   <div class="navbar-nav">
-    <span class="nav-item">Client scorecard demo</span>
+    <span class="nav-item">CACA Demonstration Results</span>
   </div>
     <div class="navbar-nav">
-    <span class="nav-item small-nav-item"><a href='Overview.html'>Overview</a> - <a href='Automation.html'>Automation</a> - Environment</span>
+    <span class="nav-item small-nav-item"></span>
   </div>
 
 </nav>
@@ -30,16 +30,16 @@
 <div class='row chart_row'>
   <div class='col-lg-12'>
     <div class='chart'>
-      <canvas id="myChartAutomationEnvironment" width="800" height="580"></canvas>
+      <canvas id="myChartOverview" width="800" height="580"></canvas>
     </div>
     <div class='overlay'>
-      <canvas id="myOverlayAutomationEnvironment" width="800" height="580"></canvas>
+      <canvas id="myOverlayOverview" width="800" height="580"></canvas>
     </div>
     <div class='legend'>
-      <canvas id="legendAutomationEnvironment" width="900" height="580"></canvas>
+      <canvas id="legendOverview" width="900" height="580"></canvas>
     </div>
     <div class='ticks'>
-      <canvas id="myTicksAutomationEnvironment" width="800" height="580"></canvas>
+      <canvas id="myTicksOverview" width="800" height="580"></canvas>
     </div>
   </div>
 </div>
@@ -49,7 +49,7 @@
 <footer class="page-footer font-small pt-4">
 <!-- Copyright -->
 <div class="footer-copyright text-center py-3">
-  Prepared for Sample Client Inc. by Centric Consulting. <strong>* Client Confidential *</strong> © 2018 <a href="https://centricconsulting.com"> Centric Consulting</a>
+  Prepared for Demo Client LLC by sample_data.csv. <strong>* Client Confidential *</strong> © 2018 <a href="https://centricconsulting.com"> Centric Consulting</a>
 </div>
 <!-- Copyright -->
 
@@ -57,29 +57,29 @@
 <!-- <script> -->
 <!--     // Scripts for the overall chart -->
     <script>
-    var ctxAutomationEnvironment = document.getElementById("myChartAutomationEnvironment").getContext("2d");
-    var overlayCanvasAutomationEnvironment = document.getElementById("myOverlayAutomationEnvironment");
-    var overlayCtxAutomationEnvironment = overlayCanvasAutomationEnvironment.getContext("2d");
-    var ticksCtxAutomationEnvironment = document.getElementById("myTicksAutomationEnvironment").getContext("2d");
-    var legendCtxAutomationEnvironment = document.getElementById("legendAutomationEnvironment").getContext("2d");
+    var ctxOverview = document.getElementById("myChartOverview").getContext("2d");
+    var overlayCanvasOverview = document.getElementById("myOverlayOverview");
+    var overlayCtxOverview = overlayCanvasOverview.getContext("2d");
+    var ticksCtxOverview = document.getElementById("myTicksOverview").getContext("2d");
+    var legendCtxOverview = document.getElementById("legendOverview").getContext("2d");
 
 
     // This is the actual data being plotted.
     // The only relevant bits are the background colors and the data values
-    dataAutomationEnvironment = {
+    dataOverview = {
         datasets: [
             {
                 label: "Score",
-                data: [3,2,0],
+                data: [1.9444444444444446,2.388888888888889],
                 backgroundColor: ["#59B9EF","#B5D855","#FBC363","#81D8FD","#DE94D4","#F5D048","#90B9D1","#CDC5A5","#50BBCC","#D7DD46","#92ADFE"],
                 borderColor: ["#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000"
                 ]
             }
         ],
-        labels: ["Provisioning Self-service tear up/down [individual developer]","Provisioning Infrastructure as Code - Templated provisioning","Provisioning Containers and Orchestration"],
-        true_values: [3,2,0]
+        labels: ["Automation","Testing"],
+        true_values: [1.9444444444444446,2.388888888888889]
     };
-    optionsAutomationEnvironment = {
+    optionsOverview = {
         scale: {
             display: false,
             gridLines: {
@@ -112,19 +112,19 @@
     };
 
     // This layer provides the legend
-    legendDataAutomationEnvironment = {
+    legendDataOverview = {
         datasets: [
             {
                 label: "Score",
-                data: [0,0,0],
+                data: [0,0],
                 backgroundColor: ["#59B9EF","#B5D855","#FBC363","#81D8FD","#DE94D4","#F5D048","#90B9D1","#CDC5A5","#50BBCC","#D7DD46","#92ADFE"],
                 borderColor: ["rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)"]
             }
         ],
-        labels: ["Provisioning Self-service tear up/down [individual developer]","Provisioning Infrastructure as Code - Templated provisioning","Provisioning Containers and Orchestration"],
-        true_values: [3,2,0]
+        labels: ["Automation","Testing"],
+        true_values: [1.9444444444444446,2.388888888888889]
     };
-    legendOptionsAutomationEnvironment = {
+    legendOptionsOverview = {
         animation: false,
         scale: {
             display: false
@@ -152,20 +152,20 @@
     // can show through.
     ///
     // this layer is drawn last.
-    overlayDataAutomationEnvironment = {
+    overlayDataOverview = {
         datasets: [
             {
                 label: "Score",
-                data: [5,5,5],
+                data: [5,5],
                 backgroundColor: ["rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)"],
                 borderWidth: 3,
                 borderColor: ["#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000"],
             }
         ],
-        labels: ["Provisioning Self-service tear up/down [individual developer]","Provisioning Infrastructure as Code - Templated provisioning","Provisioning Containers and Orchestration"],
-        true_values: [3,2,0]
+        labels: ["Automation","Testing"],
+        true_values: [1.9444444444444446,2.388888888888889]
     };
-    overlayOptionsAutomationEnvironment = {
+    overlayOptionsOverview = {
         animation: false,
         scale: {
             display: false
@@ -189,17 +189,17 @@
     // the overlay.  The data values are all set to zero so that we get tick
     // marks all the way to the center, even where there's data
     //
-    ticksDataAutomationEnvironment = {
+    ticksDataOverview = {
         datasets: [
             {
                 label: "Score",
-                data: [0,0,0],
+                data: [0,0],
             }
         ],
-        labels: ["Provisioning Self-service tear up/down [individual developer]","Provisioning Infrastructure as Code - Templated provisioning","Provisioning Containers and Orchestration"],
-        true_values: [3,2,0]
+        labels: ["Automation","Testing"],
+        true_values: [1.9444444444444446,2.388888888888889]
     };
-    ticksOptionsAutomationEnvironment = {
+    ticksOptionsOverview = {
         animation: false,
         scale: {
             display: true,
@@ -230,31 +230,38 @@
         }
     };
 
-    new Chart(ctxAutomationEnvironment, {
-        data: dataAutomationEnvironment,
+    new Chart(ctxOverview, {
+        data: dataOverview,
         type: "polarArea",
-        options: optionsAutomationEnvironment
+        options: optionsOverview
     });
 
-    var overlayChartAutomationEnvironment = new Chart(overlayCtxAutomationEnvironment, {
-        data: overlayDataAutomationEnvironment,
+    var overlayChartOverview = new Chart(overlayCtxOverview, {
+        data: overlayDataOverview,
         type: "polarArea",
-        options: overlayOptionsAutomationEnvironment
+        options: overlayOptionsOverview
     });
 
-    new Chart(ticksCtxAutomationEnvironment, {
-        data: ticksDataAutomationEnvironment,
+    new Chart(ticksCtxOverview, {
+        data: ticksDataOverview,
         type: "polarArea",
-        options: ticksOptionsAutomationEnvironment
+        options: ticksOptionsOverview
     });
 
-    new Chart(legendCtxAutomationEnvironment, {
-        data: legendDataAutomationEnvironment,
+    new Chart(legendCtxOverview, {
+        data: legendDataOverview,
         type: "polarArea",
-        options: legendOptionsAutomationEnvironment
+        options: legendOptionsOverview
     });
 
 
+    
+    overlayCanvasOverview.onclick = function (e) {
+        var slice = overlayChartOverview.getElementAtEvent(e);
+        if (!slice.length) return; // return if not clicked on slice
+        var label = slice[0]._model.label.replace(/(-|\/|:| )/g, '');
+        window.location = "" + label + ".html";
+    }
     
 
 </script>

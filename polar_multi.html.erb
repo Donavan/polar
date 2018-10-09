@@ -3,7 +3,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
   <link rel="stylesheet" id="typekit-css" href="https://use.typekit.net/mju7kpw.css?ver=4.9.8" type="text/css" media="all">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/polar.css">
+  <link rel="stylesheet" type="text/css" href="css/polar.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -31,7 +31,7 @@
 <footer class="page-footer font-small pt-4">
 <!-- Copyright -->
 <div class="footer-copyright text-center py-3">
-  Prepared for <%= $config[:client_name] %> by Centric Consulting. <strong>* Client Confidential *</strong> © 2018 <a href="https://centricconsulting.com"> Centric Consulting</a>
+  Prepared for <%= meta[:client_name] %> by <%= meta.fetch(:prepared_by, 'Centric Consulting') %>. <strong>* Client Confidential *</strong> © <%= DateTime.now.year %> <a href="https://centricconsulting.com"> Centric Consulting</a>
 </div>
 <!-- Copyright -->
 

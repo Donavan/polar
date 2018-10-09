@@ -3,7 +3,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
   <link rel="stylesheet" id="typekit-css" href="https://use.typekit.net/mju7kpw.css?ver=4.9.8" type="text/css" media="all">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/polar.css">
+  <link rel="stylesheet" type="text/css" href="css/polar.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -12,10 +12,10 @@
   </a>
 
   <div class="navbar-nav">
-    <span class="nav-item">Client scorecard demo</span>
+    <span class="nav-item">CACA Demonstration Results</span>
   </div>
     <div class="navbar-nav">
-    <span class="nav-item small-nav-item"><a href='Overview.html'>Overview</a> - <a href='Automation.html'>Automation</a> - Security/Audit</span>
+    <span class="nav-item small-nav-item"><a href='Overview.html'>Overview</a> - <a href='Automation.html'>Automation</a> - Version Control</span>
   </div>
 
 </nav>
@@ -30,16 +30,16 @@
 <div class='row chart_row'>
   <div class='col-lg-12'>
     <div class='chart'>
-      <canvas id="myChartAutomationSecurityAudit" width="800" height="580"></canvas>
+      <canvas id="myChartAutomationVersionControl" width="800" height="580"></canvas>
     </div>
     <div class='overlay'>
-      <canvas id="myOverlayAutomationSecurityAudit" width="800" height="580"></canvas>
+      <canvas id="myOverlayAutomationVersionControl" width="800" height="580"></canvas>
     </div>
     <div class='legend'>
-      <canvas id="legendAutomationSecurityAudit" width="900" height="580"></canvas>
+      <canvas id="legendAutomationVersionControl" width="900" height="580"></canvas>
     </div>
     <div class='ticks'>
-      <canvas id="myTicksAutomationSecurityAudit" width="800" height="580"></canvas>
+      <canvas id="myTicksAutomationVersionControl" width="800" height="580"></canvas>
     </div>
   </div>
 </div>
@@ -49,7 +49,7 @@
 <footer class="page-footer font-small pt-4">
 <!-- Copyright -->
 <div class="footer-copyright text-center py-3">
-  Prepared for Sample Client Inc. by Centric Consulting. <strong>* Client Confidential *</strong> © 2018 <a href="https://centricconsulting.com"> Centric Consulting</a>
+  Prepared for Demo Client LLC by sample_data.csv. <strong>* Client Confidential *</strong> © 2018 <a href="https://centricconsulting.com"> Centric Consulting</a>
 </div>
 <!-- Copyright -->
 
@@ -57,29 +57,29 @@
 <!-- <script> -->
 <!--     // Scripts for the overall chart -->
     <script>
-    var ctxAutomationSecurityAudit = document.getElementById("myChartAutomationSecurityAudit").getContext("2d");
-    var overlayCanvasAutomationSecurityAudit = document.getElementById("myOverlayAutomationSecurityAudit");
-    var overlayCtxAutomationSecurityAudit = overlayCanvasAutomationSecurityAudit.getContext("2d");
-    var ticksCtxAutomationSecurityAudit = document.getElementById("myTicksAutomationSecurityAudit").getContext("2d");
-    var legendCtxAutomationSecurityAudit = document.getElementById("legendAutomationSecurityAudit").getContext("2d");
+    var ctxAutomationVersionControl = document.getElementById("myChartAutomationVersionControl").getContext("2d");
+    var overlayCanvasAutomationVersionControl = document.getElementById("myOverlayAutomationVersionControl");
+    var overlayCtxAutomationVersionControl = overlayCanvasAutomationVersionControl.getContext("2d");
+    var ticksCtxAutomationVersionControl = document.getElementById("myTicksAutomationVersionControl").getContext("2d");
+    var legendCtxAutomationVersionControl = document.getElementById("legendAutomationVersionControl").getContext("2d");
 
 
     // This is the actual data being plotted.
     // The only relevant bits are the background colors and the data values
-    dataAutomationSecurityAudit = {
+    dataAutomationVersionControl = {
         datasets: [
             {
                 label: "Score",
-                data: [2,2,1,3,1,3,3,1],
+                data: [1,3,2,2,4,1],
                 backgroundColor: ["#59B9EF","#B5D855","#FBC363","#81D8FD","#DE94D4","#F5D048","#90B9D1","#CDC5A5","#50BBCC","#D7DD46","#92ADFE"],
                 borderColor: ["#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000"
                 ]
             }
         ],
-        labels: ["Audit/Compliance","Pen Testing","Hostile Environment","Code Scanning","Build Scanning","Separation of Duties - Automation","Separation of Duties - Separate Accounts","Cryptographic Signing"],
-        true_values: [2,2,1,3,1,3,3,1]
+        labels: ["Enforced Pre-commit validations","Feature Based Change Sets","Commit rollback on CI Failure","Branching/Merging Strategy","Integrated with Defect Management System","Integrated with Story Management System"],
+        true_values: [1,3,2,2,4,1]
     };
-    optionsAutomationSecurityAudit = {
+    optionsAutomationVersionControl = {
         scale: {
             display: false,
             gridLines: {
@@ -112,19 +112,19 @@
     };
 
     // This layer provides the legend
-    legendDataAutomationSecurityAudit = {
+    legendDataAutomationVersionControl = {
         datasets: [
             {
                 label: "Score",
-                data: [0,0,0,0,0,0,0,0],
+                data: [0,0,0,0,0,0],
                 backgroundColor: ["#59B9EF","#B5D855","#FBC363","#81D8FD","#DE94D4","#F5D048","#90B9D1","#CDC5A5","#50BBCC","#D7DD46","#92ADFE"],
                 borderColor: ["rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)"]
             }
         ],
-        labels: ["Audit/Compliance","Pen Testing","Hostile Environment","Code Scanning","Build Scanning","Separation of Duties - Automation","Separation of Duties - Separate Accounts","Cryptographic Signing"],
-        true_values: [2,2,1,3,1,3,3,1]
+        labels: ["Enforced Pre-commit validations","Feature Based Change Sets","Commit rollback on CI Failure","Branching/Merging Strategy","Integrated with Defect Management System","Integrated with Story Management System"],
+        true_values: [1,3,2,2,4,1]
     };
-    legendOptionsAutomationSecurityAudit = {
+    legendOptionsAutomationVersionControl = {
         animation: false,
         scale: {
             display: false
@@ -152,20 +152,20 @@
     // can show through.
     ///
     // this layer is drawn last.
-    overlayDataAutomationSecurityAudit = {
+    overlayDataAutomationVersionControl = {
         datasets: [
             {
                 label: "Score",
-                data: [5,5,5,5,5,5,5,5],
+                data: [5,5,5,5,5,5],
                 backgroundColor: ["rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)"],
                 borderWidth: 3,
                 borderColor: ["#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000"],
             }
         ],
-        labels: ["Audit/Compliance","Pen Testing","Hostile Environment","Code Scanning","Build Scanning","Separation of Duties - Automation","Separation of Duties - Separate Accounts","Cryptographic Signing"],
-        true_values: [2,2,1,3,1,3,3,1]
+        labels: ["Enforced Pre-commit validations","Feature Based Change Sets","Commit rollback on CI Failure","Branching/Merging Strategy","Integrated with Defect Management System","Integrated with Story Management System"],
+        true_values: [1,3,2,2,4,1]
     };
-    overlayOptionsAutomationSecurityAudit = {
+    overlayOptionsAutomationVersionControl = {
         animation: false,
         scale: {
             display: false
@@ -189,17 +189,17 @@
     // the overlay.  The data values are all set to zero so that we get tick
     // marks all the way to the center, even where there's data
     //
-    ticksDataAutomationSecurityAudit = {
+    ticksDataAutomationVersionControl = {
         datasets: [
             {
                 label: "Score",
-                data: [0,0,0,0,0,0,0,0],
+                data: [0,0,0,0,0,0],
             }
         ],
-        labels: ["Audit/Compliance","Pen Testing","Hostile Environment","Code Scanning","Build Scanning","Separation of Duties - Automation","Separation of Duties - Separate Accounts","Cryptographic Signing"],
-        true_values: [2,2,1,3,1,3,3,1]
+        labels: ["Enforced Pre-commit validations","Feature Based Change Sets","Commit rollback on CI Failure","Branching/Merging Strategy","Integrated with Defect Management System","Integrated with Story Management System"],
+        true_values: [1,3,2,2,4,1]
     };
-    ticksOptionsAutomationSecurityAudit = {
+    ticksOptionsAutomationVersionControl = {
         animation: false,
         scale: {
             display: true,
@@ -230,28 +230,28 @@
         }
     };
 
-    new Chart(ctxAutomationSecurityAudit, {
-        data: dataAutomationSecurityAudit,
+    new Chart(ctxAutomationVersionControl, {
+        data: dataAutomationVersionControl,
         type: "polarArea",
-        options: optionsAutomationSecurityAudit
+        options: optionsAutomationVersionControl
     });
 
-    var overlayChartAutomationSecurityAudit = new Chart(overlayCtxAutomationSecurityAudit, {
-        data: overlayDataAutomationSecurityAudit,
+    var overlayChartAutomationVersionControl = new Chart(overlayCtxAutomationVersionControl, {
+        data: overlayDataAutomationVersionControl,
         type: "polarArea",
-        options: overlayOptionsAutomationSecurityAudit
+        options: overlayOptionsAutomationVersionControl
     });
 
-    new Chart(ticksCtxAutomationSecurityAudit, {
-        data: ticksDataAutomationSecurityAudit,
+    new Chart(ticksCtxAutomationVersionControl, {
+        data: ticksDataAutomationVersionControl,
         type: "polarArea",
-        options: ticksOptionsAutomationSecurityAudit
+        options: ticksOptionsAutomationVersionControl
     });
 
-    new Chart(legendCtxAutomationSecurityAudit, {
-        data: legendDataAutomationSecurityAudit,
+    new Chart(legendCtxAutomationVersionControl, {
+        data: legendDataAutomationVersionControl,
         type: "polarArea",
-        options: legendOptionsAutomationSecurityAudit
+        options: legendOptionsAutomationVersionControl
     });
 
 
