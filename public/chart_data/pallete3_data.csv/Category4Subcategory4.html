@@ -1,0 +1,258 @@
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+  <link rel="stylesheet" id="typekit-css" href="https://use.typekit.net/mju7kpw.css?ver=4.9.8" type="text/css" media="all">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="css/polar.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  
+    <a class="navbar-brand" href="#">
+      <img src="https://centricconsulting.com/wp-content/themes/orbit-media/images/centric-logo.png" alt="Centric Consulting" class="logo-reverse navbar-brand">
+    </a>
+  
+
+  <div class="navbar-nav">
+    <span class="nav-item">Sample Assessment Using Material</span>
+  </div>
+  <div class="navbar-nav">
+    <span class="nav-item small-nav-item"><a href='Overview.html'>Overview</a> - <a href='Category4.html'>Category 4</a> - Subcategory 4</span>
+  </div>
+
+</nav>
+<div class="container">
+  <div class="row">
+
+  </div>
+  <!-- Render the chart -->
+  <div class="row overall">
+    
+<div class="container">
+<div class='row chart_row'>
+  <div class='col-lg-12'>
+    <div class='chart'>
+      <canvas id="chart_canvas" width="800" height="580"></canvas>
+    </div>
+    <div class='overlay'>
+      <canvas id="overlay_canvas" width="800" height="580"></canvas>
+    </div>
+    
+    <div class='legend'>
+      <canvas id="legend_canvas" width="900" height="580"></canvas>
+    </div>
+    
+    <div class='ticks'>
+      <canvas id="ticks_canvas" width="800" height="580"></canvas>
+    </div>
+  </div>
+</div>
+</div>
+  </div>
+</div>
+
+  <footer class="page-footer font-small pt-4">
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">
+      Prepared for Demo Client LLC by Centric Consulting.
+      <strong>* Client Confidential *</strong> © 2018
+      <a href="https://centricconsulting.com"> Centric Consulting</a>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+
+<!-- <script> -->
+<!--     // Scripts for the overall chart -->
+<script>
+    var data_ctx = document.getElementById("chart_canvas").getContext("2d");
+    var overlay_canvas = document.getElementById("overlay_canvas");
+    var overlay_ctx = overlay_canvas.getContext("2d");
+    var ticks_ctx = document.getElementById("ticks_canvas").getContext("2d");
+    
+    var legend_ctx = document.getElementById("legend_canvas").getContext("2d");
+    
+
+
+    // This is the actual data being plotted.
+    // The only relevant bits are the background colors and the data values
+    data = {
+        datasets: [
+            {
+                label: "Score",
+                data: [4,1,3,1,4,2,2,3],
+                backgroundColor: ["#3E50B4","#F34135","#E91D62","#663AB6","#FF9700","#2095F2","#8AC149","#FD5621","#9B26B2","#02A8F4","#CCDB38","#785446","#01BBD4","#FEEA3B","#019587","#FDC005","#5F7C8A"],
+                borderColor: ["#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000"
+                ]
+            }
+        ],
+        labels: ["Detail 1","Detail 2","Detail 3","Detail 4","Detail 5","Detail 6","Detail 7","Detail 8"],
+        true_values: [4,1,3,1,4,2,2,3]
+    };
+    options = {
+        scale: {
+            display: false,
+            gridLines: {
+                lineWidth: 3,
+                drawBorder: true,
+                drawOnChartArea: true
+            },
+            ticks: {
+                beginAtZero: true,
+                drawOnChartArea: true,
+                min: 0,
+                max: 5,
+                stepSize: 1,
+                callback: function (value, index, values) {
+                    return "";
+                }
+            }
+        },
+        legend: {
+            display: false
+        },
+        tooltips: {
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    var label = data.labels[tooltipItem.index] || '';
+                    return label + ": " + Math.round(data.true_values[tooltipItem.index]);
+                }
+            }
+        }
+    };
+
+    
+    // This layer provides the legend
+    legendData = {
+        datasets: [
+            {
+                label: "Score",
+                data: [0,0,0,0,0,0,0,0],
+                backgroundColor: ["#3E50B4","#F34135","#E91D62","#663AB6","#FF9700","#2095F2","#8AC149","#FD5621","#9B26B2","#02A8F4","#CCDB38","#785446","#01BBD4","#FEEA3B","#019587","#FDC005","#5F7C8A"],
+                borderColor: ["rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)"]
+            }
+        ],
+        labels: ["Detail 1","Detail 2","Detail 3","Detail 4","Detail 5","Detail 6","Detail 7","Detail 8"],
+        true_values: [4,1,3,1,4,2,2,3]
+    };
+    legendOptions = {
+        animation: false,
+        scale: {
+            display: false
+        },
+        legend: {
+            display: true,
+            position: 'top',
+            labels : {
+                fontSize: 14,
+                fontFamily: "'muli', 'Myriad Pro', Helvetica, Arial, sans-serif"
+            }
+        },
+        tooltips: {
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    var label = data.labels[tooltipItem.index] || '';
+                    return label + ": " + Math.round(data.true_values[tooltipItem.index]);
+                }
+            }
+        }
+    };
+
+    // This provides layer gives us the dividing border lines.
+    // The data values for this are all set to 1.0 and the background
+    // color is transparent so that the colors from the content layer
+    // can show through.
+    ///
+    // this layer is drawn last.
+    overlayData = {
+        datasets: [
+            {
+                label: "Score",
+                data: [5,5,5,5,5,5,5,5],
+                backgroundColor: ["rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)","rgba(255,0,0,0.0)"],
+                borderWidth: 3,
+                borderColor: ["#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000"],
+            }
+        ],
+        labels: ["Detail 1","Detail 2","Detail 3","Detail 4","Detail 5","Detail 6","Detail 7","Detail 8"],
+        true_values: [4,1,3,1,4,2,2,3]
+    };
+    overlayOptions = {
+        animation: false,
+        scale: {
+            display: false
+        },
+        legend: {
+            display: false
+        },
+        tooltips: {
+            displayColors: false,
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    var label = data.labels[tooltipItem.index] || '';
+                    return label + ": " + Math.round(data.true_values[tooltipItem.index] * 100) / 100;
+                }
+            }
+        }
+    };
+
+
+    // This layer provides the tick marks, it's drawn between the content and
+    // the overlay.  The data values are all set to zero so that we get tick
+    // marks all the way to the center, even where there's data
+    //
+    ticksData = {
+        datasets: [
+            {
+                label: "Score",
+                data: [0,0,0,0,0,0,0,0],
+            }
+        ],
+        labels: ["Detail 1","Detail 2","Detail 3","Detail 4","Detail 5","Detail 6","Detail 7","Detail 8"],
+        true_values: [4,1,3,1,4,2,2,3]
+    };
+    ticksOptions = {
+        animation: false,
+        scale: {
+            display: true,
+            gridLines: {
+                lineWidth: 3,
+                drawBorder: false,
+            },
+            ticks: {
+                beginAtZero: true,
+                min: 0,
+                max: 5,
+                stepSize: 1,
+                callback: function (value, index, values) {
+                    return "";
+                }
+            }
+        },
+        legend: {
+            display: false
+        },
+        tooltips: {
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    var label = data.labels[tooltipItem.index] || '';
+                    return label + ": " + Math.round(data.true_values[tooltipItem.index]);
+                }
+            }
+        }
+    };
+
+    new Chart(data_ctx, { data: data, type: "polarArea", options: options });
+
+    var overlay_chart = new Chart(overlay_ctx, { data: overlayData, type: "polarArea", options: overlayOptions });
+
+    new Chart(ticks_ctx, { data: ticksData, type: "polarArea", options: ticksOptions });
+
+    
+    new Chart(legend_ctx, { data: legendData, type: "polarArea", options: legendOptions });
+    
+
+    
+</script>
+<!-- </script> -->
+</body>

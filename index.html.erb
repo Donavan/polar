@@ -1,0 +1,234 @@
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+  <link rel="stylesheet" id="typekit-css" href="https://use.typekit.net/mju7kpw.css?ver=4.9.8" type="text/css"
+        media="all">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-centric-purple">
+  <a class="navbar-brand" href="#">
+    <img src="https://centricconsulting.com/wp-content/themes/orbit-media/images/centric-logo-white.png"
+         alt="Centric Consulting" class="logo-reverse navbar-brand">
+  </a>
+  <div class="navbar-nav">
+    <span class="nav-item">Client Assessment Chart Automation</span>
+  </div>
+</nav>
+<div class="container">
+  <div class="row">
+    &nbsp;
+  </div>
+  <div class="row">
+    <h3>Welcome</h3>
+  </div>
+  <div class="row">
+    <p>This tool will generate polar area charts from CSV files. The CSV should contain rows with the following
+      columns:</p>
+    <p class="text-monospace">Category, Sub-Category, Detail, Score</p>
+  </div>
+  <div class="row">
+    <p>Generated reports are ephemeral. If you want to preserve your charts, download a zip file.</p>
+  </div>
+  <div class="row">
+    <p>Sample charts for each palette can be seen here: <a href="/charts/pallete1_data.csv">Fiori Qualitative Base</a>, <a href="/charts/pallete2_data.csv">Fiori Qualitative Belize</a>, and <a href="/charts/pallete3_data.csv">Material</a></p>
+  </div>
+  <div class="row">
+    <p><strong>Enter information below</strong> to get started.</p>
+  </div>
+  <div class="row body-form">
+    <form action="/charts" method="post" enctype="multipart/form-data" class="body-form">
+      <div class="form-group row">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="display_legend" name="display_legend" checked>
+          <label class="form-check-label" for="display_legend">Show Legend?</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="display_branding" name="display_branding" checked>
+          <label class="form-check-label" for="display_branding">Include Branding?</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="display_title" name="display_title" checked>
+          <label class="form-check-label" for="display_title">Show Title?</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="display_copyright" name="display_copyright" checked>
+          <label class="form-check-label" for="display_copyright">Show Copyright?</label>
+        </div>
+
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-2 text-right">
+        <label for="client_name">Client Name:</label>
+        </div>
+        <div class="invalid-feedback">
+          Please provide a client name.
+        </div>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="client_name" name='client_name'
+                 placeholder="Which client is this assessment for?" required>
+        </div>
+      </div>
+      <div class="form-group row" id="title_row">
+        <div class="col-sm-2 text-right">
+        <label for="client_name">Title:</label>
+        </div>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" id="title" name='title'
+                 placeholder="Enter a title to be displayed in the nav bar when viewing the charts." required>
+        </div>
+      </div>
+      <div class="form-group row" id="prepared_by_row">
+        <div class="col-sm-2 text-right">
+        <label for="client_name">Prepared By:</label>
+        </div>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="prepared_by" name='prepared_by'
+                 placeholder="Enter a name, or leave blank for Centric Consulting">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2 text-right">
+          <label for="chart_width">Width:</label>
+        </div>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="chart_width" name='chart_width'
+                 value="<%= CHART_WIDTH %>" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2 text-right">
+          <label for="chart_height">Height:</label>
+        </div>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="chart_height" name='chart_height'
+                 value="<%= CHART_HEIGHT %>" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2 text-right">
+          <label for="palette">Color Palette:</label>
+        </div>
+        <div class="col-sm-4">
+          <select class="form-control" id="palette" name="palette">
+            <% palettes.keys.each do |palette| %>
+              <option><%= palette %></option>
+            <% end %>
+            <option>Custom</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row" id="custom_colors_row" style="display: none;">
+        <div class="col-sm-2 text-right">
+          <label for="custom_colors">Custom Colors:</label>
+        </div>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" id="custom_colors" name='custom_colors'
+                 placeholder="Enter hexadecimal color codes separated by spaces.">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2 text-right">
+          <label for="color_mode">Color Mode:</label>
+        </div>
+        <div class="col-sm-4">
+          <select class="form-control" id="color_mode" name="color_mode">
+            <option value="linear">Normal</option>
+            <option value="gradient">Categories</option>
+            <option value="score">Score</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2 text-right">
+        <label for="max_score">Maximum Score:</label>
+        </div>
+        <div class="col-sm-1">
+          <input type="text" class="form-control" value="5" id="max_score" name="max_score" required/>
+        </div>
+        <label for="tick_size">Tick Step Size <span class="hint_text">(Leave blank for auto)</span>:</label>
+        <div class="col-sm-1">
+          <input type="text" class="form-control" id="tick_size" name="tick_size" value=""/>
+        </div>
+        <div class="col-sm-3 text-right">
+          <label class="btn btn-file btn-outline-centric" id="browse_link">
+            Select a CSV file<input type="file" style="display: none;" name="csv_file" id="csv_file" required>
+          </label>
+          <input type="submit" value="Generate Charts" name="submit" class="btn btn-success" id="submit_file"
+                 style="display: none;">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+    crossorigin="anonymous"></script>
+
+
+<script>
+    $(document).on('change', ':file', function () {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        $("#browse_link").hide();
+        $("#submit_file").show();
+    });
+
+    $('#palette').on('change', function() {
+        if (this.value == 'Custom') {
+            $('#custom_colors_row').show();
+            $("#custom_colors").prop('required', true);
+        }
+        else {
+            $('#custom_colors_row').hide();
+            $("#custom_colors").prop('required', false);
+        }
+
+    });
+
+    $('#display_title').change(function () {
+        if (this.checked) {
+            $("#title_row").show();
+            $("#title").prop('required', true);
+        }
+        else {
+            $("#title_row").hide();
+            $("#title").prop('required',false);
+        }
+    });
+
+    $('#display_copyright').change(function () {
+        if (this.checked) {
+            $("#prepared_by_row").show();
+        }
+        else {
+            $("#prepared_by_row").hide();
+        }
+    });
+
+
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+</body>
+</html>

@@ -7,19 +7,21 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">
-    <img src="https://centricconsulting.com/wp-content/themes/orbit-media/images/centric-logo.png" alt="Centric Consulting" class="logo-reverse navbar-brand">
-  </a>
+  <% if meta[:display_branding] %>
+    <a class="navbar-brand" href="#">
+      <img src="https://centricconsulting.com/wp-content/themes/orbit-media/images/centric-logo.png" alt="Centric Consulting" class="logo-reverse navbar-brand">
+    </a>
+  <% end %>
 
   <div class="navbar-nav">
     <span class="nav-item"><%= chart_data[:header_text] %></span>
   </div>
-    <div class="navbar-nav">
+  <div class="navbar-nav">
     <span class="nav-item small-nav-item"><%= chart_data[:display_title] || chart_data[:title] %></span>
   </div>
 
 </nav>
-<div class="container">
+<div class="container float-left">
   <div class="row">
 
   </div>
@@ -28,16 +30,20 @@
     <%= chart_data[:chart] %>
   </div>
 </div>
-<footer class="page-footer font-small pt-4">
-<!-- Copyright -->
-<div class="footer-copyright text-center py-3">
-  Prepared for <%= meta[:client_name] %> by <%= meta.fetch(:prepared_by, 'Centric Consulting') %>. <strong>* Client Confidential *</strong> © <%= DateTime.now.year %> <a href="https://centricconsulting.com"> Centric Consulting</a>
-</div>
-<!-- Copyright -->
+<% if meta[:display_copyright] %>
+  <footer class="page-footer font-small pt-4 fixed-bottom" >
+    <!-- Copyright -->
+    <div class="footer-copyright float-left py-3">
+      Prepared for <%= meta[:client_name] %> by <%= meta.fetch(:prepared_by, 'Centric Consulting') %>.
+      <strong>* Client Confidential *</strong> © <%= DateTime.now.year %>
+      <a href="https://centricconsulting.com"> Centric Consulting</a>
+    </div>
+    <!-- Copyright -->
 
-</footer>
+  </footer>
+<% end %>
 <!-- <script> -->
 <!--     // Scripts for the overall chart -->
-    <%= chart_data[:script] %>
+<%= chart_data[:script] %>
 <!-- </script> -->
 </body>

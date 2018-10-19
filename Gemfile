@@ -8,3 +8,5 @@ gem 'nenv'
 gem 'puma'
 gem 'rubyzip'
 gem 'sinatra'
+
+gem 'chroma'

@@ -1,0 +1,30 @@
+---
+:client_name: Demo Client LLC
+:title: Sample Assessment Using Material
+:initial_filename: pallete3_data.csv
+:prepared_by: Centric Consulting
+:max_score: 5
+:tick_size: 1
+:colors:
+- "#3E50B4"
+- "#F34135"
+- "#E91D62"
+- "#663AB6"
+- "#FF9700"
+- "#2095F2"
+- "#8AC149"
+- "#FD5621"
+- "#9B26B2"
+- "#02A8F4"
+- "#CCDB38"
+- "#785446"
+- "#01BBD4"
+- "#FEEA3B"
+- "#019587"
+- "#FDC005"
+- "#5F7C8A"
+:palette: Material
+:display_legend: true
+:display_copyright: true
+:display_title: true
+:display_branding: true

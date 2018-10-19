@@ -1,0 +1,22 @@
+---
+:client_name: Demo Client LLC
+:title: CACA Demonstration Results
+:custom_colors: ''
+:color_mode: gradient
+:initial_filename: data.csv
+:prepared_by: Centric Consulting
+:max_score: 5
+:tick_size: 1
+:colors:
+- "#412d5d"
+- "#ffb612"
+- "#7ab800"
+- "#747678"
+- "#2e84bb"
+:palette: Centric
+:chart_width: '800'
+:chart_height: '580'
+:display_legend: true
+:display_copyright: true
+:display_title: true
+:display_branding: true

@@ -12,6 +12,8 @@ WORKDIR $APP_HOME
 COPY Gemfile* $APP_HOME/
 RUN bundle install
 
+ENV LANG C.UTF-8
+
 VOLUME /app/public/chart_data
 
 # Upload source

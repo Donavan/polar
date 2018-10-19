@@ -1,19 +1,21 @@
 <script>
-    var ctx<%= chart_data[:var_key] %> = document.getElementById("myChart<%= chart_data[:var_key] %>").getContext("2d");
-    var overlayCanvas<%= chart_data[:var_key] %> = document.getElementById("myOverlay<%= chart_data[:var_key] %>");
-    var overlayCtx<%= chart_data[:var_key] %> = overlayCanvas<%= chart_data[:var_key] %>.getContext("2d");
-    var ticksCtx<%= chart_data[:var_key] %> = document.getElementById("myTicks<%= chart_data[:var_key] %>").getContext("2d");
-    var legendCtx<%= chart_data[:var_key] %> = document.getElementById("legend<%= chart_data[:var_key] %>").getContext("2d");
+    var data_ctx = document.getElementById("chart_canvas").getContext("2d");
+    var overlay_canvas = document.getElementById("overlay_canvas");
+    var overlay_ctx = overlay_canvas.getContext("2d");
+    var ticks_ctx = document.getElementById("ticks_canvas").getContext("2d");
+    <% if meta[:display_legend] %>
+    var legend_ctx = document.getElementById("legend_canvas").getContext("2d");
+    <% end %>
 
 
     // This is the actual data being plotted.
     // The only relevant bits are the background colors and the data values
-    data<%= chart_data[:var_key] %> = {
+    data = {
         datasets: [
             {
                 label: "Score",
                 data: [<%= chart_data[:values].join(',') %>],
-                backgroundColor: [<%= chart_data[:colors].map { |c| "\"#{c}\""}.join(',') %>],
+                backgroundColor: [<%= chart_data[:colors].map { |l| "\"#{l}\""}.join(',') %>],
                 borderColor: [<%= chart_data[:colors].map { |_| "\"#000000\""}.join(',') %>
                 ]
             }
@@ -21,20 +23,28 @@
         labels: [<%= chart_data[:labels].map { |l| "\"#{l}\""}.join(',') %>],
         true_values: [<%= chart_data[:values].join(',') %>]
     };
-    options<%= chart_data[:var_key] %> = {
+    options = {
         scale: {
             display: false,
             gridLines: {
-                lineWidth: 3,
+                lineWidth: <%= meta.fetch(:main_line_width, 3) %>,
                 drawBorder: true,
                 drawOnChartArea: true
+            },
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 2,
+                    bottom: 2
+                }
             },
             ticks: {
                 beginAtZero: true,
                 drawOnChartArea: true,
                 min: 0,
-                max: 5,
-                stepSize: 1,
+                max: <%= meta[:max_score] %>,
+                stepSize: <%= meta.fetch(:step_size, 1) %>,
                 callback: function (value, index, values) {
                     return "";
                 }
@@ -53,8 +63,9 @@
         }
     };
 
+    <% if meta[:display_legend] %>
     // This layer provides the legend
-    legendData<%= chart_data[:var_key] %> = {
+    legendData = {
         datasets: [
             {
                 label: "Score",
@@ -66,13 +77,14 @@
         labels: [<%= chart_data[:labels].map { |l| "\"#{l}\""}.join(',') %>],
         true_values: [<%= chart_data[:values].join(',') %>]
     };
-    legendOptions<%= chart_data[:var_key] %> = {
+    legendOptions = {
         animation: false,
         scale: {
             display: false
         },
         legend: {
-            position: 'top',
+            display: <%= meta.fetch(:display_legend, true).to_s %>,
+            position: 'left',
             labels : {
                 fontSize: 14,
                 fontFamily: "'muli', 'Myriad Pro', Helvetica, Arial, sans-serif"
@@ -87,14 +99,14 @@
             }
         }
     };
-
+<% end %>
     // This provides layer gives us the dividing border lines.
     // The data values for this are all set to 1.0 and the background
     // color is transparent so that the colors from the content layer
     // can show through.
     ///
     // this layer is drawn last.
-    overlayData<%= chart_data[:var_key] %> = {
+    overlayData = {
         datasets: [
             {
                 label: "Score",
@@ -107,13 +119,21 @@
         labels: [<%= chart_data[:labels].map { |l| "\"#{l}\""}.join(',') %>],
         true_values: [<%= chart_data[:values].join(',') %>]
     };
-    overlayOptions<%= chart_data[:var_key] %> = {
+    overlayOptions = {
         animation: false,
         scale: {
             display: false
         },
         legend: {
             display: false
+        },
+        layout: {
+            padding: {
+                left: 0,
+                right: 0,
+                top: 2,
+                bottom: 2
+            }
         },
         tooltips: {
             displayColors: false,
@@ -131,7 +151,7 @@
     // the overlay.  The data values are all set to zero so that we get tick
     // marks all the way to the center, even where there's data
     //
-    ticksData<%= chart_data[:var_key] %> = {
+    ticksData = {
         datasets: [
             {
                 label: "Score",
@@ -141,19 +161,19 @@
         labels: [<%= chart_data[:labels].map { |l| "\"#{l}\""}.join(',') %>],
         true_values: [<%= chart_data[:values].join(',') %>]
     };
-    ticksOptions<%= chart_data[:var_key] %> = {
+    ticksOptions = {
         animation: false,
         scale: {
-            display: true,
+            display: <%= meta.fetch(:display_ticks_scale, true).to_s %>,
             gridLines: {
-                lineWidth: 3,
+                lineWidth: <%= meta.fetch(:tick_line_width, 3) %>,
                 drawBorder: false,
             },
             ticks: {
                 beginAtZero: true,
                 min: 0,
-                max: 5,
-                stepSize: 1,
+                max: <%= meta[:max_score] %>,
+                stepSize: <%= meta.fetch(:tick_size, 1) %>,
                 callback: function (value, index, values) {
                     return "";
                 }
@@ -161,6 +181,14 @@
         },
         legend: {
             display: false
+        },
+        layout: {
+            padding: {
+                left: 0,
+                right: 0,
+                top: 2,
+                bottom: 2
+            }
         },
         tooltips: {
             callbacks: {
@@ -172,38 +200,22 @@
         }
     };
 
-    new Chart(ctx<%= chart_data[:var_key] %>, {
-        data: data<%= chart_data[:var_key] %>,
-        type: "polarArea",
-        options: options<%= chart_data[:var_key] %>
-    });
+    new Chart(data_ctx, { data: data, type: "polarArea", options: options });
 
-    var overlayChart<%= chart_data[:var_key] %> = new Chart(overlayCtx<%= chart_data[:var_key] %>, {
-        data: overlayData<%= chart_data[:var_key] %>,
-        type: "polarArea",
-        options: overlayOptions<%= chart_data[:var_key] %>
-    });
+    var overlay_chart = new Chart(overlay_ctx, { data: overlayData, type: "polarArea", options: overlayOptions });
 
-    new Chart(ticksCtx<%= chart_data[:var_key] %>, {
-        data: ticksData<%= chart_data[:var_key] %>,
-        type: "polarArea",
-        options: ticksOptions<%= chart_data[:var_key] %>
-    });
+    new Chart(ticks_ctx, { data: ticksData, type: "polarArea", options: ticksOptions });
 
-    new Chart(legendCtx<%= chart_data[:var_key] %>, {
-        data: legendData<%= chart_data[:var_key] %>,
-        type: "polarArea",
-        options: legendOptions<%= chart_data[:var_key] %>
-    });
-
+    <% if meta[:display_legend] %>
+    new Chart(legend_ctx, { data: legendData, type: "polarArea", options: legendOptions });
+    <% end %>
 
     <% if chart_data.fetch(:use_nav, false) %>
-    overlayCanvas<%= chart_data[:var_key] %>.onclick = function (e) {
-        var slice = overlayChart<%= chart_data[:var_key] %>.getElementAtEvent(e);
+    overlay_canvas.onclick = function (e) {
+        var slice = overlay_chart.getElementAtEvent(e);
         if (!slice.length) return; // return if not clicked on slice
         var label = slice[0]._model.label.replace(/(-|\/|:| )/g, '');
         window.location = "<%= chart_data.fetch(:url_prefix, '')%>" + label + ".html";
     }
     <% end %>
-
 </script>

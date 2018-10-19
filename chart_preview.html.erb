@@ -24,10 +24,14 @@
   </ul>
   <div class="navbar-nav">
     <form action="/charts" method="post" enctype="multipart/form-data" class="form-inline navbar-form">
-      <input type="hidden" name="client_name" id="client_name" value="<%=meta[:client_name] %>">
-      <input type="hidden" name="title" id="title" value="<%=meta[:title] %>">
-      <input type="hidden" name="prepared_by" id="prepared_by" value="<%=meta[:prepared_by] %>">
-      <input type="hidden" name="initial_filename" id="initial_filename" value="<%=meta[:initial_filename] %>">
+      <% [:client_name, :title, :max_score, :tick_size, :prepared_by, :initial_filename,
+          :prepared_by, :palette, :chart_height, :chart_width, :color_mode, :custom_colors].each do |field_name| %>
+        <input type="hidden" name="<%=field_name.to_s %>" id="<%=field_name.to_s %>" value="<%= meta[field_name] %>">
+      <% end %>
+
+      <% [:display_legend, :display_title, :display_copyright, :display_branding].each do |field_name| %>
+        <input type="hidden" name="<%=field_name.to_s %>" id="<%=field_name.to_s %>" value="<%=meta[field_name] == true ? 'on' : 'off' %>">
+      <% end %>
       <label class="nav-link btn-file" id="browse_link">
         Browse for new data<input type="file" style="display: none;" name="csv_file" id="csv_file">
       </label>
@@ -41,10 +45,10 @@
     </li>
   </ul>
 </nav>
-<div class="container">
-
+<div class="container-fluid">
+  <iframe src="/chart_data/<%= page_data[:which] %>/Overview.html" style="height:90%;width: 100%; overflow: scroll; border: none;"></iframe>
 </div>
-<iframe src="/chart_data/<%= page_data[:which] %>/Overview.html" style="height:900px;width:1000px;"></iframe>
+
 <script
   src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
   integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="

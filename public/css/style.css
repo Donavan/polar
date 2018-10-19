@@ -4,6 +4,10 @@
     padding-right: 1rem;
     padding-bottom: 0.25rem;
     padding-left: 1rem;
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
+
 }
 .bg-centric-purple {
     background-color: #34284C;
@@ -75,4 +79,9 @@ label.nav-link {
     background: white;
     cursor: inherit;
     display: block;
+}
+
+.hint_text {
+    font-size: smaller;
+    color: #34284C;
 }
