@@ -47,8 +47,9 @@ post '/charts' do
   meta = { client_name: params['client_name'], title: params['title'], custom_colors: params['custom_colors'],
            color_mode: params['color_mode'], initial_filename: params.fetch('initial_filename', filename),
            prepared_by: prepared_by, max_score: max_score, tick_size: tick_size, colors: colors,
-           palette: params['palette'], chart_width: params['chart_width'], chart_height: params['chart_height'] }
-  %i[display_legend display_copyright display_title display_branding].each do |flag|
+           palette: params['palette'], chart_width: params['chart_width'], chart_height: params['chart_height'],
+           display_scoregrid: params['display_scoregrid'] }
+  %i[display_legend display_copyright display_title display_branding display_scoregrid].each do |flag|
     meta[flag] = params[flag.to_s].to_s == 'on'
   end
 

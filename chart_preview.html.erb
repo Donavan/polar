@@ -29,7 +29,7 @@
         <input type="hidden" name="<%=field_name.to_s %>" id="<%=field_name.to_s %>" value="<%= meta[field_name] %>">
       <% end %>
 
-      <% [:display_legend, :display_title, :display_copyright, :display_branding].each do |field_name| %>
+      <% [:display_legend, :display_title, :display_copyright, :display_branding, :display_scoregrid].each do |field_name| %>
         <input type="hidden" name="<%=field_name.to_s %>" id="<%=field_name.to_s %>" value="<%=meta[field_name] == true ? 'on' : 'off' %>">
       <% end %>
       <label class="nav-link btn-file" id="browse_link">
