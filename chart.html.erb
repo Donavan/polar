@@ -1,21 +1,39 @@
-
 <div class="container">
-<div class='row chart_row'>
-  <div class='col-lg-12'>
-    <div class='chart'>
-      <canvas id="chart_canvas" width="<%= meta[:chart_width]%>" height="<%= meta[:chart_height] %>"></canvas>
-    </div>
-    <div class='overlay'>
-      <canvas id="overlay_canvas" width="<%= meta[:chart_width] %>" height="<%= meta[:chart_height] %>"></canvas>
-    </div>
-    <% if meta[:display_legend] %>
-    <div class='legend'>
-      <canvas id="legend_canvas" width="<%= meta[:chart_width].to_i + meta.fetch(:legend_extra_width, 0).to_i %>" height="<%= meta[:chart_height] %>"></canvas>
-    </div>
-    <% end %>
-    <div class='ticks'>
-      <canvas id="ticks_canvas" width="<%= meta[:chart_width] %>" height="<%= meta[:chart_height]%>"></canvas>
+  <div class='row chart_row'>
+    <div class='col-lg-12'>
+      <div class='chart'>
+        <canvas id="chart_canvas" width="<%= meta[:chart_width] %>" height="<%= meta[:chart_height] %>"></canvas>
+      </div>
+      <div class='overlay'>
+        <canvas id="overlay_canvas" width="<%= meta[:chart_width] %>" height="<%= meta[:chart_height] %>"></canvas>
+      </div>
+      <% if meta[:display_legend] %>
+        <div class='legend'>
+          <canvas id="legend_canvas" width="<%= meta[:chart_width].to_i + meta.fetch(:legend_extra_width, 0).to_i %>" height="<%= meta[:chart_height] %>"></canvas>
+        </div>
+      <% end %>
+      <div class='ticks'>
+        <canvas id="ticks_canvas" width="<%= meta[:chart_width] %>" height="<%= meta[:chart_height] %>"></canvas>
+      </div>
     </div>
   </div>
 </div>
-</div>
+<% if meta[:display_scoregrid] %>
+  <div class='container'>
+    <div class='row'>
+      <div class='col-lg-12'>
+        <table>
+          <% data[:labels].each_with_index do |l, index| %>
+            <tr>
+              <td bgcolor="<%= data[:colors][index] %>" width="25px"> &nbsp;</td>
+              <td width="10px">&nbsp;</td>
+              <td><%= l %></td>
+              <td width="50px">&nbsp;</td>
+              <td><%= sprintf('%.2f', data[:values][index]) %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>

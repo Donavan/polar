@@ -16,8 +16,8 @@
                 label: "Score",
                 data: [<%= chart_data[:values].join(',') %>],
                 backgroundColor: [<%= chart_data[:colors].map { |l| "\"#{l}\""}.join(',') %>],
-                borderColor: [<%= chart_data[:colors].map { |_| "\"#000000\""}.join(',') %>
-                ]
+                borderColor: [<%= chart_data[:colors].map { |_| "\"#000000\""}.join(',') %>],
+                borderWidth: 1
             }
         ],
         labels: [<%= chart_data[:labels].map { |l| "\"#{l}\""}.join(',') %>],
@@ -112,7 +112,7 @@
                 label: "Score",
                 data: [<%= chart_data[:ranges].join(',') %>],
                 backgroundColor: [<%= chart_data[:colors].map { |_| "\"rgba(255,0,0,0.0)\""}.join(',') %>],
-                borderWidth: 3,
+                borderWidth: 2,
                 borderColor: [<%= chart_data[:colors].map { |_| "\"#000000\""}.join(',') %>],
             }
         ],
